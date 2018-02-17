@@ -9,7 +9,7 @@ const {
   GraphQLInputObjectType,
   GraphQLID
 } = require('graphql');
-const UserType = require('./type');
+const UserType = require('../../types/user');
 const resolvers = require('./resolvers');
 const mutations = {
   //#region part of crud
@@ -60,6 +60,7 @@ const mutations = {
   //#region Auth
   login: {
     type: new GraphQLObjectType({
+      name: 'loginResult',
       fields: {
         user: { type: UserType },
         token: { type: GraphQLString }
