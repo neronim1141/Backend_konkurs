@@ -1,4 +1,4 @@
-var mongoose = require("bluebird").promisifyAll(require("mongoose"));
+var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 var Schema = mongoose.Schema;
 
 var SponsorSchema = new Schema(
@@ -21,6 +21,6 @@ var SponsorSchema = new Schema(
   }
 );
 
-const Sponsor = mongoose.model("Sponsors", SponsorSchema, "Sponsors");
+const Sponsor = mongoose.model('Sponsors', SponsorSchema, 'Sponsors');
 
 module.exports = Sponsor;

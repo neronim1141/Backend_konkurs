@@ -18,3 +18,58 @@ module.exports.getList = (parentValue, args, context) => {
   });
 };
 //#endregion
+
+//#region Create Update Delete
+module.exports.createSponsor = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    var newSponsor = new Sponsor({
+      name: args.name,
+      site: args.site,
+      image: args.image
+    });
+
+    newSponsor
+      .save((err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.updateSponsor = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    Sponsor.findByIdAndUpdate(args.id, args)
+      .then(res => {
+        if (!res) reject('not found');
+        resolve({ res, ...args });
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.deleteSponsor = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    Sponsor.findById(args.id)
+      .then(res => {
+        if (!res) reject('not found');
+        res
+          .remove((err, res) => {
+            if (err) reject(err);
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+//#endregion
