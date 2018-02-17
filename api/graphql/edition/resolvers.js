@@ -1,15 +1,15 @@
-const Sponsor = require('../schema/sponsor');
+const Edition = require('../../schema/edition');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return Sponsor.findById(args.id).then(res => {
+  return Edition.findById(args.id).then(res => {
     // console.log(res);
     return res;
   });
 };
 module.exports.getList = (parentValue, args, context) => {
   // throw 'not logged';
-  return Sponsor.findAsync({}, '', {
+  return Edition.findAsync({}, '', {
     limit: args.first || 0,
     skip: args.offset || 0
   }).then(res => {

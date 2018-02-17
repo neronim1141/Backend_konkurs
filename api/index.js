@@ -8,12 +8,12 @@ const {
   GraphQLID
 } = require('graphql');
 
-const RootQuery = require('./queries');
+const Root = require('./graphql');
 // const RootMutation = require('./mutations');
 // const RootSubscription = require('./subscriptions');
 
 const schema = new GraphQLSchema({
-  query: RootQuery
+  query: Root.queries
   //   mutation: RootMutation,
   //   subscription: RootSubscription
 });

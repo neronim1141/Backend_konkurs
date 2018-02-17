@@ -8,11 +8,11 @@ const {
   GraphQLID
 } = require('graphql');
 
-const sponsorType = require('../types/sponsor');
-const resolvers = require('../resolvers/sponsor');
+const SponsorType = require('../../types/sponsor');
+const resolvers = require('./resolvers');
 const queries = {
   sponsor: {
-    type: sponsorType,
+    type: SponsorType,
     description: 'return one sponsor by id',
     args: {
       id: {
@@ -22,7 +22,7 @@ const queries = {
     resolve: resolvers.getOne
   },
   sponsors: {
-    type: new GraphQLList(sponsorType),
+    type: new GraphQLList(SponsorType),
     description: 'return list of sponsors',
     args: {
       first: {

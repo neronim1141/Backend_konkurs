@@ -8,12 +8,12 @@ const {
   GraphQLID
 } = require('graphql');
 
-const editionType = require('../types/edition');
-const resolvers = require('../resolvers/edition');
+const UserType = require('../../types/user');
+const resolvers = require('./resolvers');
 const queries = {
-  edition: {
-    type: editionType,
-    description: 'return one edition by id',
+  User: {
+    type: UserType,
+    description: 'return one User by id',
     args: {
       id: {
         type: new GraphQLNonNull(GraphQLString)
@@ -21,9 +21,9 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  editions: {
-    type: new GraphQLList(editionType),
-    description: 'return list of editions',
+  Users: {
+    type: new GraphQLList(UserType),
+    description: 'return list of Users',
     args: {
       first: {
         type: GraphQLInt,
