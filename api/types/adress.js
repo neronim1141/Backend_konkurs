@@ -6,16 +6,17 @@ const {
   GraphQLList,
   GraphQLNonNull,
   GraphQLID
-} = require('graphql');
+} = require("graphql");
 
 module.exports = new GraphQLObjectType({
-  name: 'Province',
+  name: "Adress",
   fields: () => {
-    const RegionType = require('../types/regione');
     return {
       id: { type: GraphQLID },
       name: { type: GraphQLString },
-      region: { type: RegionType }
+      street: { type: GraphQLString },
+      postcode: { type: GraphQLString },
+      city: { type: GraphQLString }
     };
   }
 });
