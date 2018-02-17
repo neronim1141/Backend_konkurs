@@ -13,6 +13,8 @@ module.exports = new GraphQLObjectType({
   fields: () => {
     const AddressType = require('../types/adress');
     const SchoolTypeType = require('../types/schooltype');
+    const SchoolType = require('../types/school');
+    const CommitteeType = require('../types/committee');
     const PersonType = require('../types/person');
     const ProvinceType = require('../types/province');
     const RegionType = require('../types/region');
@@ -21,6 +23,8 @@ module.exports = new GraphQLObjectType({
     return {
       id: { type: GraphQLID },
       name: { type: GraphQLString },
+      school: { type: SchoolType },
+      committee: { type: CommitteeType },
       schoolType: { type: SchoolTypeType },
       director: { type: PersonType },
       province: { type: ProvinceType },

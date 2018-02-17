@@ -6,6 +6,14 @@ const UserSchema = new Schema({
   login: { type: String },
   email: { type: String },
   schoolEmail: { type: String },
+  school: {
+    type: Schema.Types.ObjectId,
+    ref: 'Schools'
+  },
+  committee: {
+    type: Schema.Types.ObjectId,
+    ref: 'committee'
+  },
   role: {
     type: String,
     default: 'user'

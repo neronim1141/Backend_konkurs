@@ -1,48 +1,47 @@
-var mongoose = require("bluebird").promisifyAll(require("mongoose"));
+var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 var Schema = mongoose.Schema;
 
 var SchoolSchema = new Schema(
   {
     adress: {
       type: Schema.Types.ObjectId,
-      ref: "Addresses"
+      ref: 'Addresses'
     },
     schoolType: {
       type: Schema.Types.ObjectId,
-      ref: "SchoolTypes"
+      ref: 'SchoolTypes'
     },
     director: {
       type: Schema.Types.ObjectId,
-      ref: "Persons"
+      ref: 'Persons'
     },
     province: {
       type: Schema.Types.ObjectId,
-      ref: "Provinces"
+      ref: 'Provinces'
     },
     region: {
       type: Schema.Types.ObjectId,
-      ref: "Regions"
+      ref: 'Regions'
     },
     classes: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Classes"
+        ref: 'Classes'
       }
     ],
     apllications: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Aplications"
+        ref: 'Aplications'
       }
     ],
     teachers: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Persons"
+        ref: 'Persons'
       }
     ],
     name: { type: String },
-    email: { type: String },
     patron: { type: String },
     email: { type: String },
     telephone: { type: String },
@@ -56,6 +55,6 @@ var SchoolSchema = new Schema(
   }
 );
 
-const School = mongoose.model("Schools", SchoolSchema, "Schools");
+const School = mongoose.model('Schools', SchoolSchema, 'Schools');
 
 module.exports = School;
