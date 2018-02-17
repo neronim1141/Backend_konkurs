@@ -16,10 +16,13 @@ const mutations = {
       name: {
         type: new GraphQLNonNull(GraphQLString)
       },
-      site: {
+      street: {
         type: new GraphQLNonNull(GraphQLString)
       },
-      image: {
+      postcode: {
+        type: new GraphQLNonNull(GraphQLString)
+      },
+      city: {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
@@ -43,10 +46,13 @@ const mutations = {
       name: {
         type: GraphQLString
       },
-      site: {
+      street: {
         type: GraphQLString
       },
-      image: {
+      postcode: {
+        type: GraphQLString
+      },
+      city: {
         type: GraphQLString
       }
     },
