@@ -9,7 +9,7 @@ const {
 } = require('graphql');
 
 module.exports = new GraphQLObjectType({
-  name: 'Region',
+  name: 'School',
   fields: () => {
     const AddressType = require('../types/adress');
     const SchoolTypeType = require('../types/schooltype');
