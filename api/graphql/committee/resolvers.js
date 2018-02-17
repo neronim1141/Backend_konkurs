@@ -1,20 +1,80 @@
-const User = require('../../schema/user');
+const Committee = require("../../schema/committee");
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return User.findById(args.id).then(res => {
+  return Committee.findById(args.id).then(res => {
     // console.log(res);
     return res;
   });
 };
 module.exports.getList = (parentValue, args, context) => {
   // throw 'not logged';
-  return User.findAsync({}, '', {
+  return Committee.findAsync({}, "", {
     limit: args.first || 0,
     skip: args.offset || 0
   }).then(res => {
     // console.log(res);
     return res;
+  });
+};
+//#endregion
+
+//#region Create Update Delete
+module.exports.createCommittee = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    var newCommittee = new Committee({
+      group: args.group,
+      email: args.email,
+      www: args.www,
+      fax: args.fax,
+      telephone: args.telephone,
+      regions: args.regions,
+      adress: args.adress,
+      chairman: args.chairman
+    });
+
+    newCommittee
+      .save((err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.updateCommittee = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    Committee.findByIdAndUpdate(args.id, args)
+      .then(res => {
+        if (!res) reject("not found");
+        resolve({ res, ...args });
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.deleteCommittee = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    Committee.findById(args.id)
+      .then(res => {
+        if (!res) reject("not found");
+        res
+          .remove((err, res) => {
+            if (err) reject(err);
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+
+      .catch(err => {
+        reject(err);
+      });
   });
 };
 //#endregion
