@@ -25,10 +25,10 @@ const mutations = {
       fax: {
         type: new GraphQLNonNull(GraphQLString)
       },
-      regions: {
+      telephone: {
         type: new GraphQLNonNull(GraphQLString)
       },
-      adress: {
+      address: {
         type: new GraphQLNonNull(GraphQLString)
       },
       chairman: {
@@ -67,10 +67,7 @@ const mutations = {
       telephone: {
         type: GraphQLString
       },
-      regions: {
-        type: GraphQLString
-      },
-      adress: {
+      address: {
         type: GraphQLString
       },
       chairman: {

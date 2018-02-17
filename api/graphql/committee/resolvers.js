@@ -28,8 +28,7 @@ module.exports.createCommittee = (parentValue, args) => {
       www: args.www,
       fax: args.fax,
       telephone: args.telephone,
-      regions: args.regions,
-      adress: args.adress,
+      address: args.address,
       chairman: args.chairman
     });
 

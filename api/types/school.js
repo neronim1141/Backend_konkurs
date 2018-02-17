@@ -18,7 +18,7 @@ module.exports = new GraphQLObjectType({
     const ProvinceType = require('../types/province');
     const RegionType = require('../types/region');
     const ClassType = require('../types/class');
-    const AplicationType = require('../types/application');
+    const ApplicationType = require('../types/application');
     return {
       id: { type: GraphQLID },
       name: { type: GraphQLString },
@@ -28,7 +28,7 @@ module.exports = new GraphQLObjectType({
       province: { type: ProvinceType },
       region: { type: RegionType },
       classes: { type: new GraphQLList(ClassType) },
-      aplications: { type: new GraphQLList(AplicationType) },
+      applications: { type: new GraphQLList(ApplicationType) },
       teachers: { type: new GraphQLList(PersonType) },
       email: { type: GraphQLString },
       patron: { type: GraphQLString },

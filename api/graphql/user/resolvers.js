@@ -1,4 +1,7 @@
 const User = require('../../schema/user');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const config = require('../../../config');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
@@ -77,14 +80,17 @@ module.exports.deleteUser = (parentValue, args) => {
 //#region authenticate
 module.exports.login = (parentValue, args) => {
   return new Promise((resolve, reject) => {
+    console.log(args);
     User.findOne({
       login: args.login.toLowerCase()
     })
+      .select(
+        'login email schoolEmail assigned role creationTime salt password'
+      )
       .then(function(user) {
         if (!user) {
           reject('This User is not registered.');
         }
-
         user.authenticate(args.password, function(authError, authenticated) {
           if (authError) {
             reject(authError);

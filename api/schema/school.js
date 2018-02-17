@@ -31,10 +31,10 @@ var SchoolSchema = new Schema(
         ref: 'Classes'
       }
     ],
-    apllications: [
+    applications: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Aplications'
+        ref: 'Applications'
       }
     ],
     teachers: [
@@ -55,6 +55,13 @@ var SchoolSchema = new Schema(
     }
   }
 );
+var autoPopulate = function(next) {
+  this.populate(
+    'address schoolType director province region classes applications teachers'
+  );
+  next();
+};
+SchoolSchema.pre('findOne', autoPopulate).pre('find', autoPopulate);
 
 const School = mongoose.model('Schools', SchoolSchema, 'Schools');
 

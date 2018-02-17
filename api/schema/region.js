@@ -19,6 +19,12 @@ var RegionSchema = new Schema(
   }
 );
 
+var autoPopulate = function(next) {
+  this.populate('province');
+  next();
+};
+RegionSchema.pre('findOne', autoPopulate).pre('find', autoPopulate);
+
 const Region = mongoose.model('Regions', RegionSchema, 'Regions');
 
 module.exports = Region;

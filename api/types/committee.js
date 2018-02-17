@@ -12,7 +12,7 @@ module.exports = new GraphQLObjectType({
   name: 'Committee',
   fields: () => {
     const RegionsType = require('../types/region');
-    const AdressType = require('../types/address');
+    const AddressType = require('../types/address');
     const PersonType = require('../types/person');
     return {
       id: { type: GraphQLID },
@@ -22,7 +22,7 @@ module.exports = new GraphQLObjectType({
       fax: { type: GraphQLString },
       telephone: { type: GraphQLString },
       regions: { type: new GraphQLList(RegionsType) },
-      adress: { type: AdressType },
+      address: { type: AddressType },
       chairman: { type: PersonType }
     };
   }

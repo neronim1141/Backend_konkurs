@@ -1,4 +1,4 @@
-var mongoose = require("bluebird").promisifyAll(require("mongoose"));
+var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 var Schema = mongoose.Schema;
 
 var CommitteeSchema = new Schema(
@@ -21,16 +21,16 @@ var CommitteeSchema = new Schema(
     regions: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Regions"
+        ref: 'Regions'
       }
     ],
-    adress: {
+    address: {
       type: Schema.Types.ObjectId,
-      ref: "Addresses"
+      ref: 'Addresses'
     },
     chairman: {
       type: Schema.Types.ObjectId,
-      ref: "Persons"
+      ref: 'Persons'
     }
   },
   {
@@ -40,7 +40,12 @@ var CommitteeSchema = new Schema(
     }
   }
 );
+var autoPopulate = function(next) {
+  this.populate('regions address chairman');
+  next();
+};
+CommitteeSchema.pre('findOne', autoPopulate).pre('find', autoPopulate);
 
-const Committee = mongoose.model("Committees", CommitteeSchema, "Committees");
+const Committee = mongoose.model('Committees', CommitteeSchema, 'Committees');
 
 module.exports = Committee;
