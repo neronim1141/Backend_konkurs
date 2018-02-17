@@ -1,18 +1,12 @@
 var mongoose = require("bluebird").promisifyAll(require("mongoose"));
 var Schema = mongoose.Schema;
 
-var AddressSchema = new Schema(
+var SchooltypeSchema = new Schema(
   {
-    name: {
+    type: {
       type: String
     },
-    street: {
-      type: String
-    },
-    postcode: {
-      type: String
-    },
-    city: {
+    group: {
       type: String
     }
   },
@@ -24,6 +18,10 @@ var AddressSchema = new Schema(
   }
 );
 
-const Address = mongoose.model("Addresses", AddressSchema, "Addressses");
+const Schooltype = mongoose.model(
+  "Schooltypes",
+  SchooltypeSchema,
+  "Schooltypes"
+);
 
 module.exports = Address;

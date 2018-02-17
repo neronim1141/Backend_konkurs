@@ -1,20 +1,20 @@
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+var mongoose = require("bluebird").promisifyAll(require("mongoose"));
 var Schema = mongoose.Schema;
 
-var AddressSchema = new Schema(
+var AplicationSchema = new Schema(
   {
     school: {
       type: Schema.Types.ObjectId,
-      ref: 'Schools'
+      ref: "Schools"
     },
     edition: {
       type: Schema.Types.ObjectId,
-      ref: 'Editions'
+      ref: "Editions"
     },
     classes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Classes'
+        ref: "Classes"
       }
     ],
     status: {
@@ -29,6 +29,10 @@ var AddressSchema = new Schema(
   }
 );
 
-const Address = mongoose.model('Addresses', AddressSchema, 'Addressses');
+const Aplication = mongoose.model(
+  "Aplicationes",
+  AplicationSchema,
+  "Aplicationses"
+);
 
-module.exports = Address;
+module.exports = Aplication;

@@ -1,18 +1,36 @@
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+var mongoose = require("bluebird").promisifyAll(require("mongoose"));
 var Schema = mongoose.Schema;
 
 var CommitteeSchema = new Schema(
   {
-    region: {
+    group: {
       type: String
     },
+    email: {
+      type: String
+    },
+    www: {
+      type: String
+    },
+    fax: {
+      type: String
+    },
+    telephone: {
+      type: String
+    },
+    regions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Regions"
+      }
+    ],
     adress: {
       type: Schema.Types.ObjectId,
-      ref: 'Addresses'
+      ref: "Addresses"
     },
-    moderator: {
+    chairman: {
       type: Schema.Types.ObjectId,
-      ref: 'Person'
+      ref: "Persons"
     }
   },
   {
@@ -23,6 +41,6 @@ var CommitteeSchema = new Schema(
   }
 );
 
-const Committee = mongoose.model('Committees', CommitteeSchema, 'Committees');
+const Committee = mongoose.model("Committees", CommitteeSchema, "Committees");
 
 module.exports = Committee;
