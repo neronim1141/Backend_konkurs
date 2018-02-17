@@ -6,9 +6,9 @@ const {
   GraphQLNonNull,
   GraphQLList,
   GraphQLID
-} = require("graphql");
-const EditionType = require("../../types/edition");
-const resolvers = require("./resolvers");
+} = require('graphql');
+const EditionType = require('../../types/edition');
+const resolvers = require('./resolvers');
 const mutations = {
   createEdition: {
     type: EditionType,
@@ -47,7 +47,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       },
       name: {
-        school: GraphQLString
+        type: GraphQLString
       },
       sign_from: {
         type: GraphQLString

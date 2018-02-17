@@ -6,9 +6,9 @@ const {
   GraphQLNonNull,
   GraphQLList,
   GraphQLID
-} = require("graphql");
-const ClassType = require("../../types/class");
-const resolvers = require("./resolvers");
+} = require('graphql');
+const ClassType = require('../../types/class');
+const resolvers = require('./resolvers');
 const mutations = {
   createClass: {
     type: ClassType,
@@ -50,7 +50,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       },
       school: {
-        school: GraphQLString
+        type: GraphQLString
       },
       guardian: {
         type: GraphQLString

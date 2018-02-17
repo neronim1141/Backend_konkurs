@@ -6,9 +6,9 @@ const {
   GraphQLNonNull,
   GraphQLList,
   GraphQLID
-} = require("graphql");
-const ApplicationType = require("../../types/application");
-const resolvers = require("./resolvers");
+} = require('graphql');
+const ApplicationType = require('../../types/application');
+const resolvers = require('./resolvers');
 const mutations = {
   createApplication: {
     type: ApplicationType,
@@ -43,8 +43,8 @@ const mutations = {
       id: {
         type: new GraphQLNonNull(GraphQLString)
       },
-      name: {
-        school: GraphQLString
+      school: {
+        type: GraphQLString
       },
       edition: {
         type: GraphQLString

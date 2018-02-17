@@ -6,9 +6,9 @@ const {
   GraphQLNonNull,
   GraphQLList,
   GraphQLID
-} = require("graphql");
-const CommitteeType = require("../../types/committee");
-const resolvers = require("./resolvers");
+} = require('graphql');
+const CommitteeType = require('../../types/committee');
+const resolvers = require('./resolvers');
 const mutations = {
   createCommittee: {
     type: CommitteeType,
@@ -53,7 +53,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       },
       group: {
-        school: GraphQLString
+        type: GraphQLString
       },
       email: {
         type: GraphQLString
