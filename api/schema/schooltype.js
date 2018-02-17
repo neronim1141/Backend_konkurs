@@ -24,4 +24,4 @@ const SchoolType = mongoose.model(
   'SchoolTypes'
 );
 
-module.exports = Address;
+module.exports = SchoolType;
