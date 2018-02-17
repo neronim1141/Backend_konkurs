@@ -16,10 +16,6 @@ module.exports = {
     options: {
       useMongoClient: true
     },
-    populate: false,
-    debug: {
-      fields: true,
-      errors: true
-    }
+    populate: false
   }
 };

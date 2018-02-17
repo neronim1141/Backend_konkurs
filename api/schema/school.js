@@ -3,7 +3,9 @@ var Schema = mongoose.Schema;
 
 var SchoolSchema = new Schema(
   {
-    adress: {
+    name: { type: String },
+
+    address: {
       type: Schema.Types.ObjectId,
       ref: 'Addresses'
     },
@@ -41,7 +43,6 @@ var SchoolSchema = new Schema(
         ref: 'Persons'
       }
     ],
-    name: { type: String },
     patron: { type: String },
     email: { type: String },
     telephone: { type: String },

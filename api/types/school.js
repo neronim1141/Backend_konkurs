@@ -22,7 +22,7 @@ module.exports = new GraphQLObjectType({
     return {
       id: { type: GraphQLID },
       name: { type: GraphQLString },
-      committee: { type: CommitteeType },
+      address: { type: AddressType },
       schoolType: { type: SchoolTypeType },
       director: { type: PersonType },
       province: { type: ProvinceType },

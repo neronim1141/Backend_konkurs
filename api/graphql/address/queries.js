@@ -21,7 +21,7 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  Adresss: {
+  Adresses: {
     type: new GraphQLList(AdressType),
     description: 'return list of Adresss',
     args: {

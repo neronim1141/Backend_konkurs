@@ -7,7 +7,8 @@ var SchoolTypeSchema = new Schema(
       type: String
     },
     group: {
-      type: String
+      type: String,
+      enum: ['JUNIOR', 'SENIOR']
     }
   },
   {
