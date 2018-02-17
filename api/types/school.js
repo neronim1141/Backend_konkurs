@@ -11,7 +11,7 @@ const {
 module.exports = new GraphQLObjectType({
   name: 'School',
   fields: () => {
-    const AddressType = require('../types/adress');
+    const AddressType = require('../types/address');
     const SchoolTypeType = require('../types/schooltype');
     const SchoolType = require('../types/school');
     const CommitteeType = require('../types/committee');

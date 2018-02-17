@@ -1,15 +1,15 @@
-const User = require('../../schema/user');
+const Address = require('../../schema/address');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return User.findById(args.id).then(res => {
+  return Address.findById(args.id).then(res => {
     // console.log(res);
     return res;
   });
 };
 module.exports.getList = (parentValue, args, context) => {
   // throw 'not logged';
-  return User.findAsync({}, '', {
+  return Address.findAsync({}, '', {
     limit: args.first || 0,
     skip: args.offset || 0
   }).then(res => {
