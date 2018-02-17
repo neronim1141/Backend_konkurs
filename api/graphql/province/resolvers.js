@@ -18,3 +18,55 @@ module.exports.getList = (parentValue, args, context) => {
   });
 };
 //#endregion
+
+//#region Create Update Delete
+module.exports.createProvince = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    var newProvince = new Province({
+      name: args.name
+    });
+    newProvince
+      .save((err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.updateProvince = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    Province.findByIdAndUpdate(args.id, args, { new: true })
+      .then(res => {
+        if (!res) throw 'not found';
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.deleteProvince = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    Province.findById(args.id)
+      .then(res => {
+        if (!res) reject('not found');
+        res
+          .remove((err, res) => {
+            if (err) reject(err);
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+//#endregion

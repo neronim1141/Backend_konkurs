@@ -18,3 +18,56 @@ module.exports.getList = (parentValue, args, context) => {
   });
 };
 //#endregion
+
+//#region Create Update Delete
+module.exports.createSchoolType = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    var newSchoolType = new SchoolType({
+      type: args.type,
+      group: args.group
+    });
+    newSchoolType
+      .save((err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.updateSchoolType = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    SchoolType.findByIdAndUpdate(args.id, args, { new: true })
+      .then(res => {
+        if (!res) reject('not found');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+module.exports.deleteSchoolType = (parentValue, args) => {
+  return new Promise((resolve, reject) => {
+    SchoolType.findById(args.id)
+      .then(res => {
+        if (!res) reject('not found');
+        res
+          .remove((err, res) => {
+            if (err) reject(err);
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+//#endregion

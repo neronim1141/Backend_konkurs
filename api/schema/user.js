@@ -6,13 +6,8 @@ const UserSchema = new Schema({
   login: { type: String },
   email: { type: String },
   schoolEmail: { type: String },
-  school: {
-    type: Schema.Types.ObjectId,
-    ref: 'Schools'
-  },
-  committee: {
-    type: Schema.Types.ObjectId,
-    ref: 'committee'
+  assigned: {
+    type: String
   },
   role: {
     type: String,
@@ -135,7 +130,9 @@ UserSchema.methods = {
       if (err) {
         callback(err);
       }
-
+      console.log(pwdGen);
+      console.log(_this.password);
+      console.log(_this.salt);
       if (_this.password === pwdGen) {
         callback(null, true);
       } else {
@@ -180,9 +177,8 @@ UserSchema.methods = {
    */
   encryptPassword: function(password, callback) {
     if (!password || !this.salt) {
-      return null;
+      return null, false;
     }
-
     if (!callback) {
       bcrypt.hash(password, this.salt);
     }

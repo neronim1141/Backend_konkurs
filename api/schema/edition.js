@@ -1,4 +1,4 @@
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+var mongoose = require("bluebird").promisifyAll(require("mongoose"));
 var Schema = mongoose.Schema;
 
 var EditionSchema = new Schema(
@@ -15,7 +15,7 @@ var EditionSchema = new Schema(
     results_from: {
       type: Date
     },
-    results_from: {
+    results_to: {
       type: Date
     }
   },
@@ -27,6 +27,6 @@ var EditionSchema = new Schema(
   }
 );
 
-const Edition = mongoose.model('Editions', EditionSchema, 'Editions');
+const Edition = mongoose.model("Editions", EditionSchema, "Editions");
 
 module.exports = Edition;

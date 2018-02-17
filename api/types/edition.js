@@ -18,7 +18,7 @@ module.exports = new GraphQLObjectType({
         type: GraphQLString,
         description: 'since when you can sign up'
       },
-      sign_in: {
+      sign_to: {
         type: GraphQLString,
         description: 'until when you can sign up'
       },
@@ -26,7 +26,7 @@ module.exports = new GraphQLObjectType({
         type: GraphQLString,
         description: 'since when the results can appear'
       },
-      results_in: {
+      results_to: {
         type: GraphQLString,
         description: 'until when the results should appear'
       }

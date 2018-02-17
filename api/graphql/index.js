@@ -38,3 +38,20 @@ module.exports.queries = new GraphQLObjectType({
     ...User.queries
   })
 });
+module.exports.mutations = new GraphQLObjectType({
+  name: 'Mutation', //Return this type of object
+  fields: () => ({
+    ...Address.mutations,
+    ...Application.mutations,
+    ...Class.mutations,
+    ...Committee.mutations,
+    ...Edition.mutations,
+    ...Person.mutations,
+    ...Province.mutations,
+    ...Region.mutations,
+    ...School.mutations,
+    ...SchoolType.mutations,
+    ...Sponsor.mutations,
+    ...User.mutations
+  })
+});

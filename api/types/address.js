@@ -6,10 +6,10 @@ const {
   GraphQLList,
   GraphQLNonNull,
   GraphQLID
-} = require("graphql");
+} = require('graphql');
 
 module.exports = new GraphQLObjectType({
-  name: "Adress",
+  name: 'Address',
   fields: () => {
     return {
       id: { type: GraphQLID },
