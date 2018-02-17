@@ -42,10 +42,10 @@ module.exports.createPerson = (parentValue, args) => {
 
 module.exports.updatePerson = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Person.findByIdAndUpdate(args.id, args)
+    Person.findByIdAndUpdate(args.id, args, { new: true })
       .then(res => {
-        if (!res) reject('not found');
-        resolve({ res, ...args });
+        if (!res) throw 'not found';
+        resolve(res);
       })
       .catch(err => {
         reject(err);

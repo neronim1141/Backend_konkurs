@@ -1,4 +1,4 @@
-const Application = require("../../schema/application");
+const Application = require('../../schema/application');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
@@ -9,7 +9,7 @@ module.exports.getOne = (parentValue, args) => {
 };
 module.exports.getList = (parentValue, args, context) => {
   // throw 'not logged';
-  return Application.findAsync({}, "", {
+  return Application.findAsync({}, '', {
     limit: args.first || 0,
     skip: args.offset || 0
   }).then(res => {
@@ -42,10 +42,10 @@ module.exports.createApplication = (parentValue, args) => {
 
 module.exports.updateApplication = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Application.findByIdAndUpdate(args.id, args)
+    Application.findByIdAndUpdate(args.id, args, { new: true })
       .then(res => {
-        if (!res) reject("not found");
-        resolve({ res, ...args });
+        if (!res) throw 'not found';
+        resolve(res);
       })
       .catch(err => {
         reject(err);
@@ -57,7 +57,7 @@ module.exports.deleteApplication = (parentValue, args) => {
   return new Promise((resolve, reject) => {
     Application.findById(args.id)
       .then(res => {
-        if (!res) reject("not found");
+        if (!res) reject('not found');
         res
           .remove((err, res) => {
             if (err) reject(err);

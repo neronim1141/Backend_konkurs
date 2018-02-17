@@ -41,10 +41,10 @@ module.exports.createUser = (parentValue, args) => {
 };
 module.exports.updateUser = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    User.findByIdAndUpdateAsync(args.id, args)
+    User.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
-        resolve({ res, ...args });
+        resolve(res);
       })
       .catch(err => {
         reject(err);

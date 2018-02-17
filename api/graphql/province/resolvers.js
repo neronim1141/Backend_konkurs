@@ -38,10 +38,10 @@ module.exports.createProvince = (parentValue, args) => {
 
 module.exports.updateProvince = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Province.findByIdAndUpdate(args.id, args)
+    Province.findByIdAndUpdate(args.id, args, { new: true })
       .then(res => {
-        if (!res) reject('not found');
-        resolve({ res, ...args });
+        if (!res) throw 'not found';
+        resolve(res);
       })
       .catch(err => {
         reject(err);

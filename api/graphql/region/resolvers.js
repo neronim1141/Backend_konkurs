@@ -39,10 +39,10 @@ module.exports.createRegion = (parentValue, args) => {
 
 module.exports.updateRegion = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Region.findByIdAndUpdate(args.id, args)
+    Region.findByIdAndUpdate(args.id, args, { new: true })
       .then(res => {
-        if (!res) reject('not found');
-        resolve({ res, ...args });
+        if (!res) throw 'not found';
+        resolve(res);
       })
       .catch(err => {
         reject(err);

@@ -1,4 +1,4 @@
-const Edition = require("../../schema/edition");
+const Edition = require('../../schema/edition');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
@@ -9,7 +9,7 @@ module.exports.getOne = (parentValue, args) => {
 };
 module.exports.getList = (parentValue, args, context) => {
   // throw 'not logged';
-  return Edition.findAsync({}, "", {
+  return Edition.findAsync({}, '', {
     limit: args.first || 0,
     skip: args.offset || 0
   }).then(res => {
@@ -43,10 +43,10 @@ module.exports.createEdition = (parentValue, args) => {
 
 module.exports.updateEdition = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Edition.findByIdAndUpdate(args.id, args)
+    Edition.findByIdAndUpdate(args.id, args, { new: true })
       .then(res => {
-        if (!res) reject("not found");
-        resolve({ res, ...args });
+        if (!res) throw 'not found';
+        resolve(res);
       })
       .catch(err => {
         reject(err);
@@ -58,7 +58,7 @@ module.exports.deleteEdition = (parentValue, args) => {
   return new Promise((resolve, reject) => {
     Edition.findById(args.id)
       .then(res => {
-        if (!res) reject("not found");
+        if (!res) reject('not found');
         res
           .remove((err, res) => {
             if (err) reject(err);

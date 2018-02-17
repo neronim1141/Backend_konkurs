@@ -39,10 +39,10 @@ module.exports.createSchoolType = (parentValue, args) => {
 
 module.exports.updateSchoolType = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    SchoolType.findByIdAndUpdate(args.id, args)
+    SchoolType.findByIdAndUpdate(args.id, args, { new: true })
       .then(res => {
         if (!res) reject('not found');
-        resolve({ res, ...args });
+        resolve(res);
       })
       .catch(err => {
         reject(err);

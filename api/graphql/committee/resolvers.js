@@ -1,4 +1,4 @@
-const Committee = require("../../schema/committee");
+const Committee = require('../../schema/committee');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
@@ -9,7 +9,7 @@ module.exports.getOne = (parentValue, args) => {
 };
 module.exports.getList = (parentValue, args, context) => {
   // throw 'not logged';
-  return Committee.findAsync({}, "", {
+  return Committee.findAsync({}, '', {
     limit: args.first || 0,
     skip: args.offset || 0
   }).then(res => {
@@ -46,10 +46,10 @@ module.exports.createCommittee = (parentValue, args) => {
 
 module.exports.updateCommittee = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Committee.findByIdAndUpdate(args.id, args)
+    Committee.findByIdAndUpdate(args.id, args, { new: true })
       .then(res => {
-        if (!res) reject("not found");
-        resolve({ res, ...args });
+        if (!res) throw 'not found';
+        resolve(res);
       })
       .catch(err => {
         reject(err);
@@ -61,7 +61,7 @@ module.exports.deleteCommittee = (parentValue, args) => {
   return new Promise((resolve, reject) => {
     Committee.findById(args.id)
       .then(res => {
-        if (!res) reject("not found");
+        if (!res) reject('not found');
         res
           .remove((err, res) => {
             if (err) reject(err);
