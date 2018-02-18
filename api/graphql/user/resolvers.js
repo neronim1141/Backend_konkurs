@@ -5,7 +5,7 @@ const config = require('../../../config');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return User.findById(args.id).then(res => {
+  return User.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
   });
@@ -56,13 +56,13 @@ module.exports.updateUser = (parentValue, args) => {
 };
 module.exports.deleteUser = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    User.findById(args.id)
+    User.findByIdAsync(args.id)
       .then(user => {
         if (!user) {
           throw 'Not Found';
         }
         user
-          .remove((err, res) => {
+          .removeAsync((err, res) => {
             if (err) throw err;
             resolve(res);
           })

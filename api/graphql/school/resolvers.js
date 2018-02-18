@@ -2,7 +2,7 @@ const School = require('../../schema/school');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return School.findById(args.id).then(res => {
+  return School.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
   });
@@ -35,7 +35,7 @@ module.exports.createSchool = (parentValue, args) => {
       fax: args.fax
     });
     newSchool
-      .save((err, res) => {
+      .saveAsync((err, res) => {
         if (err) reject(err);
         resolve(res);
       })
@@ -47,7 +47,7 @@ module.exports.createSchool = (parentValue, args) => {
 
 module.exports.updateSchool = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    School.findByIdAndUpdate(args.id, args, { new: true })
+    School.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
         resolve(res);
@@ -60,11 +60,11 @@ module.exports.updateSchool = (parentValue, args) => {
 
 module.exports.deleteSchool = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    School.findById(args.id)
+    School.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
         res
-          .remove((err, res) => {
+          .removeAsync((err, res) => {
             if (err) reject(err);
             resolve(res);
           })
