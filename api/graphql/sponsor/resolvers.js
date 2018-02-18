@@ -2,7 +2,7 @@ const Sponsor = require('../../schema/sponsor');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return Sponsor.findById(args.id).then(res => {
+  return Sponsor.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
   });
@@ -29,7 +29,7 @@ module.exports.createSponsor = (parentValue, args) => {
     });
 
     newSponsor
-      .save((err, res) => {
+      .saveAsync((err, res) => {
         if (err) reject(err);
         resolve(res);
       })
@@ -41,7 +41,7 @@ module.exports.createSponsor = (parentValue, args) => {
 
 module.exports.updateSponsor = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Sponsor.findByIdAndUpdate(args.id, args, { new: true })
+    Sponsor.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
         resolve(res);
@@ -54,11 +54,11 @@ module.exports.updateSponsor = (parentValue, args) => {
 
 module.exports.deleteSponsor = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Sponsor.findById(args.id)
+    Sponsor.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
         res
-          .remove((err, res) => {
+          .removeAsync((err, res) => {
             if (err) reject(err);
             resolve(res);
           })

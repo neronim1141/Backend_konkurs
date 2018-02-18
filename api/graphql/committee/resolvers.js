@@ -2,7 +2,7 @@ const Committee = require('../../schema/committee');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return Committee.findById(args.id).then(res => {
+  return Committee.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
   });
@@ -33,7 +33,7 @@ module.exports.createCommittee = (parentValue, args) => {
     });
 
     newCommittee
-      .save((err, res) => {
+      .saveAsync((err, res) => {
         if (err) reject(err);
         resolve(res);
       })
@@ -45,7 +45,7 @@ module.exports.createCommittee = (parentValue, args) => {
 
 module.exports.updateCommittee = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Committee.findByIdAndUpdate(args.id, args, { new: true })
+    Committee.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
         resolve(res);
@@ -58,11 +58,11 @@ module.exports.updateCommittee = (parentValue, args) => {
 
 module.exports.deleteCommittee = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Committee.findById(args.id)
+    Committee.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
         res
-          .remove((err, res) => {
+          .removeAsync((err, res) => {
             if (err) reject(err);
             resolve(res);
           })

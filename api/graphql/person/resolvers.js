@@ -2,7 +2,7 @@ const Person = require('../../schema/person');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return Person.findById(args.id).then(res => {
+  return Person.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
   });
@@ -30,7 +30,7 @@ module.exports.createPerson = (parentValue, args) => {
       telephone: args.telephone
     });
     newPerson
-      .save((err, res) => {
+      .saveAsync((err, res) => {
         if (err) reject(err);
         resolve(res);
       })
@@ -42,7 +42,7 @@ module.exports.createPerson = (parentValue, args) => {
 
 module.exports.updatePerson = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Person.findByIdAndUpdate(args.id, args, { new: true })
+    Person.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
         resolve(res);
@@ -55,11 +55,11 @@ module.exports.updatePerson = (parentValue, args) => {
 
 module.exports.deletePerson = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Person.findById(args.id)
+    Person.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
         res
-          .remove((err, res) => {
+          .removeAsync((err, res) => {
             if (err) reject(err);
             resolve(res);
           })

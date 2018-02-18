@@ -2,7 +2,7 @@ const Region = require('../../schema/region');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return Region.findById(args.id).then(res => {
+  return Region.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
   });
@@ -27,7 +27,7 @@ module.exports.createRegion = (parentValue, args) => {
       province: args.province
     });
     newRegion
-      .save((err, res) => {
+      .saveAsync((err, res) => {
         if (err) reject(err);
         resolve(res);
       })
@@ -39,7 +39,7 @@ module.exports.createRegion = (parentValue, args) => {
 
 module.exports.updateRegion = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Region.findByIdAndUpdate(args.id, args, { new: true })
+    Region.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
         resolve(res);
@@ -52,11 +52,11 @@ module.exports.updateRegion = (parentValue, args) => {
 
 module.exports.deleteRegion = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Region.findById(args.id)
+    Region.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
         res
-          .remove((err, res) => {
+          .removeAsync((err, res) => {
             if (err) reject(err);
             resolve(res);
           })

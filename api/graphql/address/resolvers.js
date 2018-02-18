@@ -2,7 +2,7 @@ const Address = require('../../schema/address');
 
 //#region Read object
 module.exports.getOne = (parentValue, args) => {
-  return Address.findById(args.id).then(res => {
+  return Address.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
   });
@@ -30,7 +30,7 @@ module.exports.createAddress = (parentValue, args) => {
     });
 
     newAddress
-      .save((err, res) => {
+      .saveAsync((err, res) => {
         if (err) reject(err);
         resolve(res);
       })
@@ -42,7 +42,7 @@ module.exports.createAddress = (parentValue, args) => {
 
 module.exports.updateAddress = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Address.findByIdAndUpdate(args.id, args, { new: true })
+    Address.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
         resolve(res);
@@ -55,7 +55,7 @@ module.exports.updateAddress = (parentValue, args) => {
 
 module.exports.deleteAddress = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    Address.findById(args.id)
+    Address.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
         res
