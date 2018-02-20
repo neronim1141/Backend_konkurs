@@ -20,7 +20,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       },
       classes: {
-        type: new GraphQLNonNull(GraphQLString)
+        type: new GraphQLNonNull(new GraphQLList(GraphQLString))
       },
       status: {
         type: new GraphQLNonNull(GraphQLString)
@@ -50,7 +50,7 @@ const mutations = {
         type: GraphQLString
       },
       classes: {
-        type: GraphQLString
+        type: new GraphQLList(GraphQLString)
       },
       status: {
         type: GraphQLString
