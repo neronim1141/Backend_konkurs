@@ -3,6 +3,8 @@ const User = require('../api/schema/user');
 var LocalStrategy = require('passport-local').Strategy;
 
 function localAuthenticate(login, password, done) {
+  console.log('test');
+
   User.findOne({
     login: login.toLowerCase()
   })
@@ -31,7 +33,7 @@ function localAuthenticate(login, password, done) {
     });
 }
 
-exports.setup = function(User, config) {
+exports.setup = function(config) {
   passport.use(
     new LocalStrategy(
       {

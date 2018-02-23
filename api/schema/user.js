@@ -130,9 +130,6 @@ UserSchema.methods = {
       if (err) {
         callback(err);
       }
-      console.log(pwdGen);
-      console.log(_this.password);
-      console.log(_this.salt);
       if (_this.password === pwdGen) {
         callback(null, true);
       } else {

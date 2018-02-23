@@ -80,7 +80,6 @@ module.exports.deleteUser = (parentValue, args) => {
 //#region authenticate
 module.exports.login = (parentValue, args) => {
   return new Promise((resolve, reject) => {
-    console.log(args);
     User.findOne({
       login: args.login.toLowerCase()
     })

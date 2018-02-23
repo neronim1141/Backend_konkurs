@@ -35,11 +35,8 @@ app.use(
     secret: config.secrets.session,
     credentialsRequired: false,
     getToken: function fromHeaderOrQuerystring(req) {
-      if (
-        req.headers.authorization &&
-        req.headers.authorization.split(' ')[0] === 'Bearer'
-      ) {
-        return req.headers.authorization.split(' ')[1];
+      if (req.headers.authorization) {
+        return req.headers.authorization;
       } else if (req.query && req.query.token) {
         return req.query.token;
       }
@@ -72,10 +69,12 @@ const schema = require('./api');
 
 app.use(
   '/api',
-  bodyParser.json(),
-  graphqlExpress({
-    schema: schema
-  })
+  graphqlExpress(req => ({
+    schema: schema,
+    context: {
+      user: req.user
+    }
+  }))
 );
 
 app.use(
