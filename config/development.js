@@ -8,6 +8,7 @@ module.exports = {
   secrets: {
     session: 'secret'
   },
+  userRoles: ['user', 'committee', 'admin'],
 
   mongo: {
     uri:
