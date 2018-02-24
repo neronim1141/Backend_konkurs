@@ -1,7 +1,8 @@
 const Province = require('../../schema/province');
+const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return Province.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -20,8 +21,10 @@ module.exports.getList = (parentValue, args, context) => {
 //#endregion
 
 //#region Create Update Delete
-module.exports.createProvince = (parentValue, args) => {
+module.exports.createProvince = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     var newProvince = new Province({
       name: args.name
     });
@@ -36,8 +39,10 @@ module.exports.createProvince = (parentValue, args) => {
   });
 };
 
-module.exports.updateProvince = (parentValue, args) => {
+module.exports.updateProvince = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     Province.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
@@ -49,8 +54,10 @@ module.exports.updateProvince = (parentValue, args) => {
   });
 };
 
-module.exports.deleteProvince = (parentValue, args) => {
+module.exports.deleteProvince = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     Province.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');

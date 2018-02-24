@@ -1,7 +1,8 @@
 const Committee = require('../../schema/committee');
+const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return Committee.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -20,8 +21,9 @@ module.exports.getList = (parentValue, args, context) => {
 //#endregion
 
 //#region Create Update Delete
-module.exports.createCommittee = (parentValue, args) => {
+module.exports.createCommittee = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
     var newCommittee = new Committee({
       group: args.group,
       email: args.email,
@@ -43,11 +45,14 @@ module.exports.createCommittee = (parentValue, args) => {
   });
 };
 
-module.exports.updateCommittee = (parentValue, args) => {
+module.exports.updateCommittee = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).isAssigned(args.is, reject);
+
     Committee.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
-        if (!res) throw 'not found';
+        if (!res) reject('not found');
+
         resolve(res);
       })
       .catch(err => {
@@ -56,8 +61,10 @@ module.exports.updateCommittee = (parentValue, args) => {
   });
 };
 
-module.exports.deleteCommittee = (parentValue, args) => {
+module.exports.deleteCommittee = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     Committee.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');

@@ -1,7 +1,8 @@
 const Address = require('../../schema/address');
+const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return Address.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -19,9 +20,12 @@ module.exports.getList = (parentValue, args, context) => {
 };
 //#endregion
 
+// TODO: save address creator also?
 //#region Create Update Delete
-module.exports.createAddress = (parentValue, args) => {
+module.exports.createAddress = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).isAuthenticated(reject);
+
     var newAddress = new Address({
       name: args.name,
       street: args.street,
@@ -40,11 +44,13 @@ module.exports.createAddress = (parentValue, args) => {
   });
 };
 
-module.exports.updateAddress = (parentValue, args) => {
+module.exports.updateAddress = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).isAssigned(reject);
+
     Address.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
-        if (!res) throw 'not found';
+        if (!res) reject('not found');
         resolve(res);
       })
       .catch(err => {
@@ -53,8 +59,10 @@ module.exports.updateAddress = (parentValue, args) => {
   });
 };
 
-module.exports.deleteAddress = (parentValue, args) => {
+module.exports.deleteAddress = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).isAssigned(reject);
+
     Address.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');

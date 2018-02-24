@@ -1,7 +1,8 @@
 const Class = require('../../schema/class');
+const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return Class.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -20,8 +21,9 @@ module.exports.getList = (parentValue, args, context) => {
 //#endregion
 
 //#region Create Update Delete
-module.exports.createClass = (parentValue, args) => {
+module.exports.createClass = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).isAssigned(args.school, reject);
     var newClass = new Class({
       school: args.school,
       guardian: args.guardian,
@@ -42,11 +44,13 @@ module.exports.createClass = (parentValue, args) => {
   });
 };
 
-module.exports.updateClass = (parentValue, args) => {
+module.exports.updateClass = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
     Class.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
-        if (!res) throw 'not found';
+        if (!res) reject('not found');
+        new AuthValidate(context.user).isAssigned(res.school, reject);
+
         resolve(res);
       })
       .catch(err => {
@@ -55,11 +59,13 @@ module.exports.updateClass = (parentValue, args) => {
   });
 };
 
-module.exports.deleteClass = (parentValue, args) => {
+module.exports.deleteClass = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
     Class.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
+        new AuthValidate(context.user).isAssigned(res.school, reject);
+
         res
           .removeAsync((err, res) => {
             if (err) reject(err);

@@ -1,7 +1,8 @@
 const Edition = require('../../schema/edition');
+const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return Edition.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -20,8 +21,9 @@ module.exports.getList = (parentValue, args, context) => {
 //#endregion
 
 //#region Create Update Delete
-module.exports.createEdition = (parentValue, args) => {
+module.exports.createEdition = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
     var newEdition = new Edition({
       name: args.name,
       sign_from: args.sign_from,
@@ -41,8 +43,10 @@ module.exports.createEdition = (parentValue, args) => {
   });
 };
 
-module.exports.updateEdition = (parentValue, args) => {
+module.exports.updateEdition = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     Edition.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
@@ -54,8 +58,10 @@ module.exports.updateEdition = (parentValue, args) => {
   });
 };
 
-module.exports.deleteEdition = (parentValue, args) => {
+module.exports.deleteEdition = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     Edition.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');

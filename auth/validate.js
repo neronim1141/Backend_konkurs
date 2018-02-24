@@ -10,9 +10,17 @@ class AuthValidate {
       reject('Forbidden. You must by logged to do that.');
     }
   }
+  isSelf(id, reject) {
+    this.isAuthenticated(reject);
+    if (this.user.id != id && this.user.role != config.userRoles[2]) {
+      {
+        reject(`Forbidden. Only User with assigned Id: ${id} can do that.`);
+      }
+    }
+  }
   isAssigned(id, reject) {
     this.isAuthenticated(reject);
-    if (this.user.assigned != id) {
+    if (this.user.assigned != id && this.user.role != config.userRoles[2]) {
       {
         reject(`Forbidden. Only User with assigned Id: ${id} can do that.`);
       }
@@ -22,7 +30,7 @@ class AuthValidate {
     this.isAuthenticated(reject);
 
     if (
-      config.userRoles.indexOf(this.user.role) < config.userRoles.indexOf(role)
+      config.userRoles.indexOf(this.user.role) <= config.userRoles.indexOf(role)
     ) {
       reject(`Forbidden. Only ${role} or greater role can do that.`);
     }

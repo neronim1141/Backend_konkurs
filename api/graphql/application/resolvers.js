@@ -1,7 +1,8 @@
 const Application = require('../../schema/application');
+const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return Application.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -20,8 +21,10 @@ module.exports.getListAsync = (parentValue, args, context) => {
 //#endregion
 
 //#region Create Update Delete
-module.exports.createApplication = (parentValue, args) => {
+module.exports.createApplication = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).isAssigned(args.school, reject);
+
     var newApplication = new Application({
       school: args.school,
       edition: args.edition,
@@ -40,11 +43,13 @@ module.exports.createApplication = (parentValue, args) => {
   });
 };
 
-module.exports.updateApplication = (parentValue, args) => {
+module.exports.updateApplication = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
     Application.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
-        if (!res) throw 'not found';
+        if (!res) reject('not found');
+        new AuthValidate(context.user).isAssigned(res.school, reject);
+
         resolve(res);
       })
       .catch(err => {
@@ -53,11 +58,12 @@ module.exports.updateApplication = (parentValue, args) => {
   });
 };
 
-module.exports.deleteApplication = (parentValue, args) => {
+module.exports.deleteApplication = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
     Application.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
+        new AuthValidate(context.user).isAssigned(res.school, reject);
         res
           .removeAsync((err, res) => {
             if (err) reject(err);

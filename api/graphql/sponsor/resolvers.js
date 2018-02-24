@@ -1,7 +1,8 @@
 const Sponsor = require('../../schema/sponsor');
+const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return Sponsor.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -20,8 +21,9 @@ module.exports.getList = (parentValue, args, context) => {
 //#endregion
 
 //#region Create Update Delete
-module.exports.createSponsor = (parentValue, args) => {
+module.exports.createSponsor = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
     var newSponsor = new Sponsor({
       name: args.name,
       site: args.site,
@@ -39,8 +41,10 @@ module.exports.createSponsor = (parentValue, args) => {
   });
 };
 
-module.exports.updateSponsor = (parentValue, args) => {
+module.exports.updateSponsor = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     Sponsor.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) throw 'not found';
@@ -52,8 +56,10 @@ module.exports.updateSponsor = (parentValue, args) => {
   });
 };
 
-module.exports.deleteSponsor = (parentValue, args) => {
+module.exports.deleteSponsor = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     Sponsor.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');

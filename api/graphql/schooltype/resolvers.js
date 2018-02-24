@@ -1,7 +1,7 @@
 const SchoolType = require('../../schema/schooltype');
 
 //#region Read object
-module.exports.getOne = (parentValue, args) => {
+module.exports.getOne = (parentValue, args, context) => {
   return SchoolType.findByIdAsync(args.id).then(res => {
     // console.log(res);
     return res;
@@ -20,8 +20,10 @@ module.exports.getList = (parentValue, args, context) => {
 //#endregion
 
 //#region Create Update Delete
-module.exports.createSchoolType = (parentValue, args) => {
+module.exports.createSchoolType = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     var newSchoolType = new SchoolType({
       type: args.type,
       group: args.group
@@ -37,8 +39,10 @@ module.exports.createSchoolType = (parentValue, args) => {
   });
 };
 
-module.exports.updateSchoolType = (parentValue, args) => {
+module.exports.updateSchoolType = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     SchoolType.findByIdAndUpdateAsync(args.id, args, { new: true })
       .then(res => {
         if (!res) reject('not found');
@@ -50,8 +54,10 @@ module.exports.updateSchoolType = (parentValue, args) => {
   });
 };
 
-module.exports.deleteSchoolType = (parentValue, args) => {
+module.exports.deleteSchoolType = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    new AuthValidate(context.user).hasRole('admin', reject);
+
     SchoolType.findByIdAsync(args.id)
       .then(res => {
         if (!res) reject('not found');
