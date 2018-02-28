@@ -4,13 +4,16 @@ var Schema = mongoose.Schema;
 var SponsorSchema = new Schema(
   {
     name: {
-      type: String
+      type: String,
+      required: true
     },
     site: {
-      type: String
+      type: String,
+      required: true
     },
     image: {
-      type: String
+      type: String,
+      required: true
     }
   },
   {

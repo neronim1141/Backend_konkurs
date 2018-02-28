@@ -23,6 +23,7 @@ module.exports.getList = (parentValue, args, context) => {
 //#region Create Update Delete
 module.exports.createSponsor = (parentValue, args, context) => {
   return new Promise((resolve, reject) => {
+    console.log(context.user);
     new AuthValidate(context.user).hasRole('admin', reject);
     var newSponsor = new Sponsor({
       name: args.name,

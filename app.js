@@ -6,17 +6,9 @@ const config = require('./config');
 var app = express();
 
 //#region database:Mongo
-const mongoose = require('mongoose');
+const conn = require('./utility/db');
+conn.open();
 
-mongoose.connect(config.mongo.uri, config.mongo.options);
-mongoose.Promise = global.Promise;
-
-mongoose.connection.on('error', function(err) {
-  console.error(
-    'MongoDB connection to <' + config.mongo.uri + '> failed: ' + err
-  );
-  process.exit(-1);
-});
 //#endregion
 
 //#region view engine setup
@@ -73,6 +65,15 @@ app.use(
     schema: schema,
     context: {
       user: req.user
+    },
+    formatError(err) {
+      // errors.report(err, req); // <-- log the error
+      return {
+        message: err.message,
+        code: (err.originalError && err.originalError.code) || 500, // <--
+        locations: err.locations,
+        path: err.path
+      };
     }
   }))
 );

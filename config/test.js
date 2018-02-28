@@ -2,7 +2,7 @@
 // ==================================
 module.exports = {
   // MongoDB connection options
-  env: 'development',
+  env: 'test',
   port: process.env.PORT || 3000,
   ip: process.env.IP || '0.0.0.0',
   secrets: {
@@ -18,8 +18,8 @@ module.exports = {
     options: {
       useMongoClient: true
     },
-    debug: false,
+    debug: true,
     populate: false
   },
-  debug: process.env.DEBUG || false
+  debug: process.env.DEBUG || true
 };

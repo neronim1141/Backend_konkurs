@@ -8,12 +8,12 @@ const {
   GraphQLID
 } = require('graphql');
 
-const AdressType = require('../../types/address');
+const addressType = require('../../types/address');
 const resolvers = require('./resolvers');
 const queries = {
-  Adress: {
-    type: AdressType,
-    description: 'return one Adress by id',
+  address: {
+    type: addressType,
+    description: 'return one address by id',
     args: {
       id: {
         type: new GraphQLNonNull(GraphQLString)
@@ -21,9 +21,9 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  Adresses: {
-    type: new GraphQLList(AdressType),
-    description: 'return list of Adresss',
+  addresses: {
+    type: new GraphQLList(addressType),
+    description: 'return list of addresss',
     args: {
       first: {
         type: GraphQLInt,

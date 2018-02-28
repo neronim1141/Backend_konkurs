@@ -5,9 +5,9 @@ class AuthValidate {
     this.user = user;
   }
 
-  isAuthenticated(reject) {
+  isAuthenticated() {
     if (!this.user) {
-      reject('Forbidden. You must by logged to do that.');
+      throw 'Forbidden. You must by logged to do that.';
     }
   }
   isSelf(id, reject) {
@@ -27,10 +27,10 @@ class AuthValidate {
     }
   }
   hasRole(role, reject) {
-    this.isAuthenticated(reject);
+    this.isAuthenticated();
 
     if (
-      config.userRoles.indexOf(this.user.role) <= config.userRoles.indexOf(role)
+      config.userRoles.indexOf(this.user.role) < config.userRoles.indexOf(role)
     ) {
       reject(`Forbidden. Only ${role} or greater role can do that.`);
     }
