@@ -46,7 +46,7 @@ WEBHOOK_DATA='{
   "avatar_url": "https://travis-ci.org/images/logos/TravisCI-Mascot-1.png",
   "embeds": [ {
     "color": '$EMBED_COLOR',
-    "title": "'"$COMMIT_MESSAGE"': '"$STATUS_MESSAGE"'",
+    "title": "'"$COMMIT_SUBJECT"': '"$STATUS_MESSAGE"'",
     "url": "'"$URL"'",
       "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n'",
     "fields": [
