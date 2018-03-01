@@ -8,6 +8,9 @@ const factories = require('./factories');
 const mongoTest = require('./mongooseSpec');
 const graphTest = require('./graphQLSpec');
 const mongoose = require('mongoose');
+
+mongoose.models = {};
+mongoose.modelSchemas = {};
 describe('Mongoose', () => {
   before(function(done) {
     conn
@@ -18,8 +21,6 @@ describe('Mongoose', () => {
             factories[factory].mongoose.schema.find().remove();
         }
 
-        mongoose.models = {};
-        mongoose.modelSchemas = {};
         done();
       })
       .catch(done);
