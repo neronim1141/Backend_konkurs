@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "SET ENV=development&&nodemon ./bin/www",
-    "test":
-      "SET ENV=test&&mocha  -w -R  spec tests/**/*.spec.js --timeout 4000",
+    "test": "mocha  -w -R  spec tests/**/*.spec.js --timeout 4000",
     "test:server": "SET ENV=test&&nodemon ./bin/www"
   },
   "dependencies": {
