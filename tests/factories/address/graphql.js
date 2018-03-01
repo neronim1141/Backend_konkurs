@@ -1,7 +1,6 @@
 const graphql = require('graphql');
 
 const type = require('../../../api/types/address');
-
 const fieldsType = {
   id: graphql.GraphQLID,
   name: graphql.GraphQLString,
@@ -9,8 +8,10 @@ const fieldsType = {
   postcode: graphql.GraphQLString,
   city: graphql.GraphQLString
 };
+const queriesTest = require('./graph/queries');
 
 module.exports = {
   type,
-  fieldsType
+  fieldsType,
+  queriesTest
 };
