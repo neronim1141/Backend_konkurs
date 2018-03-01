@@ -43,7 +43,7 @@ fi
 TIMESTAMP=$(date --utc +%FT%TZ)
 WEBHOOK_DATA='{
   "username": "",
-  "avatar_url": "",
+  "avatar_url": "https://travis-ci.org/images/logos/TravisCI-Mascot-1.png",
   "embeds": [ {
     "color": '$EMBED_COLOR',
     "author": {
@@ -52,7 +52,7 @@ WEBHOOK_DATA='{
     },
     "title": "'"$COMMIT_SUBJECT"'",
     "url": "'"$URL"'",
-     "description": "",
+    "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n'",
     "fields": [
       {
         "name": "Commit",
