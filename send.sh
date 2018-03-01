@@ -52,7 +52,7 @@ WEBHOOK_DATA='{
     },
     "title": "''",
     "url": "'"$URL"'",
-    "description": "'"$COMMIT_SUBJECT"'",
+    "description": "'\n"$COMMIT_SUBJECT"\n\n'",
     "fields": [
       {
         "name": "Commit",
