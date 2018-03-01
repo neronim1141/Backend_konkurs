@@ -29,7 +29,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.createPerson
+    resolve: resolvers.create
   },
   removePerson: {
     type: PersonType,
@@ -38,7 +38,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deletePerson
+    resolve: resolvers.delete
   },
   updatePerson: {
     type: PersonType,
@@ -62,7 +62,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updatePerson
+    resolve: resolvers.update
   }
 };
 

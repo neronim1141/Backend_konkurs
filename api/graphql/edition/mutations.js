@@ -29,7 +29,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createEdition
+    resolve: resolvers.create
   },
   removeEdition: {
     type: EditionType,
@@ -38,7 +38,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteEdition
+    resolve: resolvers.delete
   },
   updateEdition: {
     type: EditionType,
@@ -62,7 +62,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateEdition
+    resolve: resolvers.update
   }
 };
 

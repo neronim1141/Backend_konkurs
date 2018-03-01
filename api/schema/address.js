@@ -3,7 +3,7 @@ var customErrors = require('../../utility/errors');
 var Sponsor = require('./sponsor');
 var Schema = mongoose.Schema;
 
-var AddressSchema = new Schema(
+var schema = new Schema(
   {
     name: {
       type: String,
@@ -44,12 +44,13 @@ var AddressSchema = new Schema(
   }
 );
 
-const Address = mongoose.model('Addresses', AddressSchema, 'Addresses');
+const thisSchema = mongoose.model('Addresses', schema, 'Addresses');
 
-module.exports = Address;
+module.exports = thisSchema;
 
 module.exports.getOne = id => {
-  return Address.findById(id)
+  return thisSchema
+    .findById(id)
     .then(res => {
       if (!res) throw new customErrors.NotFound();
       return res;
@@ -59,13 +60,14 @@ module.exports.getOne = id => {
     });
 };
 module.exports.getList = args => {
-  return Address.find()
+  return thisSchema
+    .find()
     .then(res => res)
     .catch(err => err);
 };
 module.exports.createNew = schema => {
   return new Promise((resolve, reject) => {
-    var newAddress = new Address(schema);
+    var newAddress = new thisSchema(schema);
 
     newAddress
       .save()
@@ -79,7 +81,8 @@ module.exports.createNew = schema => {
 };
 module.exports.updateId = (id, data) => {
   return new Promise((resolve, reject) => {
-    Address.findByIdAndUpdateAsync(id, data, { new: true })
+    thisSchema
+      .findByIdAndUpdateAsync(id, data, { new: true })
       .then(res => {
         if (!res) throw new customErrors.NotFound();
         resolve(res);
@@ -91,7 +94,8 @@ module.exports.updateId = (id, data) => {
 };
 module.exports.deleteId = id => {
   return new Promise((resolve, reject) => {
-    Address.findByIdAsync(id)
+    thisSchema
+      .findByIdAsync(id)
       .then(res => {
         if (!res) throw new customErrors.NotFound();
         res

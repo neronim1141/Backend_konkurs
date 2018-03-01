@@ -32,7 +32,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createClass
+    resolve: resolvers.create
   },
   removeClass: {
     type: ClassType,
@@ -41,7 +41,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteClass
+    resolve: resolvers.delete
   },
   updateClass: {
     type: ClassType,
@@ -68,7 +68,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateClass
+    resolve: resolvers.update
   }
 };
 

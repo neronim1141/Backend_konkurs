@@ -8,6 +8,7 @@ function open() {
     if (config.debug) {
       let Mockgoose = require('mockgoose').Mockgoose;
       let mockgoose = new Mockgoose(mongoose);
+
       mockgoose.helper.setDbVersion('3.4.10');
       mockgoose
         .prepareStorage()

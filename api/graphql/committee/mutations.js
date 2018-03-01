@@ -35,7 +35,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createCommittee
+    resolve: resolvers.create
   },
   removeCommittee: {
     type: CommitteeType,
@@ -44,7 +44,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteCommittee
+    resolve: resolvers.delete
   },
   updateCommittee: {
     type: CommitteeType,
@@ -74,7 +74,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateCommittee
+    resolve: resolvers.update
   }
 };
 

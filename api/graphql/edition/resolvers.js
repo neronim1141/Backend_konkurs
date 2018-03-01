@@ -1,83 +1,25 @@
-const Edition = require('../../schema/edition');
+const schema = require('../../schema').edition;
 const AuthValidate = require('../../../auth/validate');
 
 //#region Read object
 module.exports.getOne = (parentValue, args, context) => {
-  return Edition.findByIdAsync(args.id).then(res => {
-    // console.log(res);
-    return res;
-  });
+  return schema.getOne(args.id);
 };
 module.exports.getList = (parentValue, args, context) => {
-  // throw 'not logged';
-  return Edition.findAsync({}, '', {
-    limit: args.first || 0,
-    skip: args.offset || 0
-  }).then(res => {
-    // console.log(res);
-    return res;
-  });
+  return schema.getList(args);
 };
 //#endregion
 
 //#region Create Update Delete
-module.exports.createEdition = (parentValue, args, context) => {
-  return new Promise((resolve, reject) => {
-    new AuthValidate(context.user).hasRole('admin', reject);
-    var newEdition = new Edition({
-      name: args.name,
-      sign_from: args.sign_from,
-      sign_to: args.sign_to,
-      results_from: args.results_from,
-      results_to: args.results_to
-    });
-
-    newEdition
-      .saveAsync((err, res) => {
-        if (err) reject(err);
-        resolve(res);
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
+module.exports.create = (parentValue, args, context) => {
+  return schema.createNew(args);
 };
 
-module.exports.updateEdition = (parentValue, args, context) => {
-  return new Promise((resolve, reject) => {
-    new AuthValidate(context.user).hasRole('admin', reject);
-
-    Edition.findByIdAndUpdateAsync(args.id, args, { new: true })
-      .then(res => {
-        if (!res) throw 'not found';
-        resolve(res);
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
+module.exports.update = (parentValue, { id, ...args }, context) => {
+  return schema.updateId(id, args);
 };
 
-module.exports.deleteEdition = (parentValue, args, context) => {
-  return new Promise((resolve, reject) => {
-    new AuthValidate(context.user).hasRole('admin', reject);
-
-    Edition.findByIdAsync(args.id)
-      .then(res => {
-        if (!res) reject('not found');
-        res
-          .removeAsync((err, res) => {
-            if (err) reject(err);
-            resolve(res);
-          })
-          .catch(err => {
-            reject(err);
-          });
-      })
-
-      .catch(err => {
-        reject(err);
-      });
-  });
+module.exports.delete = (parentValue, args, context) => {
+  return schema.deleteId(args.id);
 };
 //#endregion

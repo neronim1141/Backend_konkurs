@@ -20,7 +20,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createRegion
+    resolve: resolvers.create
   },
   removeRegion: {
     type: RegionType,
@@ -29,7 +29,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteRegion
+    resolve: resolvers.delete
   },
   updateRegion: {
     type: RegionType,
@@ -44,7 +44,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateRegion
+    resolve: resolvers.update
   }
 };
 

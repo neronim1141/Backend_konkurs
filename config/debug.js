@@ -18,7 +18,7 @@ module.exports = {
     options: {
       useMongoClient: true
     },
-    debug: false,
+    debug: true,
     populate: false
   },
   debug: process.env.DEBUG || true

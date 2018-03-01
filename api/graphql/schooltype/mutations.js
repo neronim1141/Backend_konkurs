@@ -20,7 +20,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createSchoolType
+    resolve: resolvers.create
   },
   removeSchoolType: {
     type: SchoolTypeType,
@@ -29,7 +29,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteSchoolType
+    resolve: resolvers.delete
   },
   updateSchoolType: {
     type: SchoolTypeType,
@@ -44,7 +44,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateSchoolType
+    resolve: resolvers.update
   }
 };
 

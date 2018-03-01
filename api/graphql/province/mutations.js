@@ -17,7 +17,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createProvince
+    resolve: resolvers.create
   },
   removeProvince: {
     type: ProvinceType,
@@ -26,7 +26,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteProvince
+    resolve: resolvers.delete
   },
   updateProvince: {
     type: ProvinceType,
@@ -38,7 +38,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateProvince
+    resolve: resolvers.update
   }
 };
 

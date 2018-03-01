@@ -6,9 +6,9 @@ const {
   GraphQLNonNull,
   GraphQLList,
   GraphQLID
-} = require("graphql");
-const AddressType = require("../../types/address");
-const resolvers = require("./resolvers");
+} = require('graphql');
+const AddressType = require('../../types/address');
+const resolvers = require('./resolvers');
 const mutations = {
   createAddress: {
     type: AddressType,
@@ -26,7 +26,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createAddress
+    resolve: resolvers.create
   },
   removeAddress: {
     type: AddressType,
@@ -35,7 +35,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteAddress
+    resolve: resolvers.delete
   },
   updateAddress: {
     type: AddressType,
@@ -56,7 +56,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateAddress
+    resolve: resolvers.update
   }
 };
 

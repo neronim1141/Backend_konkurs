@@ -26,7 +26,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createApplication
+    resolve: resolvers.create
   },
   removeApplication: {
     type: ApplicationType,
@@ -35,7 +35,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteApplication
+    resolve: resolvers.delete
   },
   updateApplication: {
     type: ApplicationType,
@@ -56,7 +56,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateApplication
+    resolve: resolvers.update
   }
 };
 

@@ -29,7 +29,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createUser
+    resolve: resolvers.create
   },
   removeUser: {
     type: UserType,
@@ -38,7 +38,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteUser
+    resolve: resolvers.delete
   },
   updateUser: {
     type: UserType,
@@ -54,7 +54,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateUser
+    resolve: resolvers.update
   },
   //#endregion
   //#region Auth

@@ -23,7 +23,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.createSponsor
+    resolve: resolvers.create
   },
   removeSponsor: {
     type: SponsorType,
@@ -32,7 +32,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: resolvers.deleteSponsor
+    resolve: resolvers.delete
   },
   updateSponsor: {
     type: SponsorType,
@@ -50,7 +50,7 @@ const mutations = {
         type: GraphQLString
       }
     },
-    resolve: resolvers.updateSponsor
+    resolve: resolvers.update
   }
 };
 

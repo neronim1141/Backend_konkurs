@@ -1,8 +1,11 @@
 const mongoose = require('bluebird').promisifyAll(require('mongoose'));
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const schema = new Schema({
   login: { type: String },
   email: { type: String },
   schoolEmail: { type: String },
@@ -23,20 +26,20 @@ const UserSchema = new Schema({
 
 //#region Validators
 // Validate empty email
-UserSchema.path('email').validate(function(email) {
+schema.path('email').validate(function(email) {
   return email.length;
 }, 'Email cannot be blank');
-UserSchema.path('schoolEmail').validate(function(email) {
+schema.path('schoolEmail').validate(function(email) {
   return email.length;
 }, 'Email cannot be blank');
 
 // Validate empty password
-UserSchema.path('password').validate(function(password) {
+schema.path('password').validate(function(password) {
   return password.length;
 }, 'Password cannot be blank');
 
 // Validate email is not taken
-UserSchema.path('email').validate(function(value, respond) {
+schema.path('email').validate(function(value, respond) {
   let self = this;
   return this.constructor
     .findOne({ email: value })
@@ -54,7 +57,7 @@ UserSchema.path('email').validate(function(value, respond) {
     });
 }, 'The specified email address is already in use.');
 
-UserSchema.path('schoolEmail').validate(function(value, respond) {
+schema.path('schoolEmail').validate(function(value, respond) {
   let self = this;
   return this.constructor
     .findOne({ schoolEmail: value })
@@ -78,7 +81,7 @@ const validatePresenceOf = function(value) {
 //#endregion
 
 //#region pre-save hook
-UserSchema.pre('save', function(next) {
+schema.pre('save', function(next) {
   // Handle new passwords
   if (this.isModified('password')) {
     if (!validatePresenceOf(this.password)) {
@@ -111,7 +114,7 @@ UserSchema.pre('save', function(next) {
 //#endregion
 
 //#region Methods
-UserSchema.methods = {
+schema.methods = {
   /**
    * Authenticate - check if the passwords are the same
    *
@@ -187,6 +190,116 @@ UserSchema.methods = {
 };
 //#endregion
 
-const User = mongoose.model('Users', UserSchema, 'Users');
+const thisSchema = mongoose.model('Users', schema, 'Users');
 
-module.exports = User;
+module.exports = thisSchema;
+
+module.exports.getOne = id => {
+  return thisSchema
+    .findById(id)
+    .then(res => {
+      if (!res) throw new customErrors.NotFound();
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+module.exports.getList = args => {
+  return thisSchema
+    .find()
+    .then(res => res)
+    .catch(err => err);
+};
+module.exports.createNew = schema => {
+  return new Promise((resolve, reject) => {
+    var newAddress = new thisSchema(schema);
+
+    newAddress
+      .save()
+      .then(res => resolve(res))
+      .catch(err => {
+        reject(err);
+      });
+  })
+    .then(res => res)
+    .catch(err => err);
+};
+module.exports.updateId = (id, data) => {
+  return new Promise((resolve, reject) => {
+    thisSchema
+      .findByIdAndUpdateAsync(id, data, { new: true })
+      .then(res => {
+        if (!res) throw new customErrors.NotFound();
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+module.exports.deleteId = id => {
+  return new Promise((resolve, reject) => {
+    thisSchema
+      .findByIdAsync(id)
+      .then(res => {
+        if (!res) throw new customErrors.NotFound();
+        res
+          .remove((err, res) => {
+            if (err) reject(err);
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+module.exports.login = args => {
+  return new Promise((resolve, reject) => {
+    thisSchema
+      .findOne({
+        login: args.login.toLowerCase()
+      })
+      .select(
+        'login email schoolEmail assigned role creationTime salt password'
+      )
+      .then(user => {
+        if (!user) {
+          reject('This User is not registered.');
+        }
+        user.authenticate(args.password, (authError, authenticated) => {
+          if (authError) {
+            reject(authError);
+          }
+          if (!authenticated) {
+            reject('This password is not correct.');
+          } else {
+            let token = jwt.sign(
+              {
+                _id: user._id,
+                assigned: user.assigned,
+                role: user.role
+              },
+              config.secrets.session,
+              {
+                expiresIn: args.alwaysLogged ? '60d' : '10h'
+              }
+            );
+
+            resolve({
+              user: user,
+              token: token
+            });
+          }
+        });
+      })
+      .catch(function(err) {
+        reject(err);
+      });
+  });
+};
