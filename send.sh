@@ -43,16 +43,16 @@ fi
 TIMESTAMP=$(date --utc +%FT%TZ)
 WEBHOOK_DATA='{
   "username": "",
-  "avatar_url": "https://travis-ci.org/images/logos/TravisCI-Mascot-1.png",
+  "avatar_url": "",
   "embeds": [ {
     "color": '$EMBED_COLOR',
     "author": {
-      "name": "'"$STATUS_MESSAGE"'",
+      "name": "Job #'"$TRAVIS_JOB_NUMBER"' (Build #'"$TRAVIS_BUILD_NUMBER"') '"$STATUS_MESSAGE"' - '"$TRAVIS_REPO_SLUG"'",
       "url": "https://travis-ci.org/'"$TRAVIS_REPO_SLUG"'/builds/'"$TRAVIS_BUILD_ID"'"
     },
-    "title": "'"$COMMIT_SUBJECT"'",
+    "title": "''",
     "url": "'"$URL"'",
-    "description": "'\\n\\n"${COMMIT_MESSAGE//$'\n'/ }"'",
+    "description": "'"$COMMIT_SUBJECT"'",
     "fields": [
       {
         "name": "Commit",
