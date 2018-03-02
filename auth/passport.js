@@ -1,5 +1,5 @@
 var passport = require('passport');
-const User = require('../api/schema/user');
+const User = require('../api/models/user').schema;
 var LocalStrategy = require('passport-local').Strategy;
 
 function localAuthenticate(login, password, done) {

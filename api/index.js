@@ -7,7 +7,7 @@ const {
   GraphQLNonNull,
   GraphQLID
 } = require('graphql');
-const Root = require('./graphql');
+const Root = require('./models');
 
 // const RootSubscription = require('./subscriptions');
 

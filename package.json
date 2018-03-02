@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "SET ENV=development&&nodemon ./bin/www",
-    "test": "SET ENV=test&&mocha -w -R spec tests/**/*.spec.js --timeout 4000",
+    "test": "SET ENV=test&&mocha -w -R spec tests.js --timeout 4000",
     "test:server": "SET ENV=test&&nodemon ./bin/www",
-    "travis:test": "mocha  tests/**/*.spec.js --timeout 4000"
+    "travis:test": "mocha  tests.js --timeout 4000"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
