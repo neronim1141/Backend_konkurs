@@ -10,14 +10,14 @@ const customErrors = require('../../../../utility/errors');
 const schema = require('../schema');
 const mongooseErrors = mongoose.Error;
 
-const modelName = require('./index.spec').name;
+const modelName = 'address';
 const fields = ['name', 'street', 'postcode', 'city'];
 const required = ['name', 'street', 'postcode', 'city'];
 
 const valid = {
   name: 'a',
   street: 'a',
-  postcode: 'a',
+  postcode: '86-300',
   city: 'a'
 };
 const updated = {
@@ -32,6 +32,12 @@ const invalid = {
   street: '',
   postcode: '',
   city: ''
+};
+const partialInvalid = {
+  name: 'a',
+  street: 'a',
+  postcode: '67777',
+  city: 'a'
 };
 module.exports = () => {
   describe('schema', () => {
@@ -60,6 +66,15 @@ module.exports = () => {
           });
         });
       }
+    });
+    describe('regex validate', () => {
+      let test = new schema(partialInvalid);
+      it(`postcode format`, () => {
+        test.validate(err => {
+          expect(err.errors['postcode']).to.exist;
+          done();
+        });
+      });
     });
   });
 
