@@ -14,6 +14,12 @@ var schema = new Schema(
     },
     postcode: {
       type: String,
+      validate: {
+        validator: function(v) {
+          return /([0-9]{2})-([0-9]{3})/.test(v);
+        },
+        message: '{VALUE} is not a valid postcode!'
+      },
       required: true
     },
     city: {
