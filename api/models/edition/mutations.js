@@ -14,7 +14,7 @@ const mutations = {
     type: EditionType,
     args: {
       name: {
-        type: new GraphQLNonNull(GraphQLString)
+        type: new GraphQLNonNull(GraphQLInt)
       },
       sign_from: {
         type: new GraphQLNonNull(GraphQLString)

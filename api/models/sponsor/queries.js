@@ -11,6 +11,10 @@ const {
 const SponsorType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
+  sponsorCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
   sponsor: {
     type: SponsorType,
     description: 'return one sponsor by id',

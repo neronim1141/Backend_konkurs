@@ -8,7 +8,7 @@ const sandbox = sinon.sandbox.create();
 const chai = require('chai');
 const expect = chai.expect;
 
-const type = require('./type');
+const type = require('../type');
 
 const fieldsType = {
   id: graphql.GraphQLID,

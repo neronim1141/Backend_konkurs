@@ -23,22 +23,10 @@ var schema = new Schema(
   },
   {
     toObject: {
-      virtuals: true,
-      transform: function(doc, ret, options) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.__v;
-        return ret;
-      }
+      virtuals: true
     },
     toJSON: {
-      virtuals: true,
-      transform: function(doc, ret, options) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.__v;
-        return ret;
-      }
+      virtuals: true
     }
   }
 );
@@ -111,4 +99,15 @@ module.exports.deleteId = id => {
         reject(err);
       });
   });
+};
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
 };

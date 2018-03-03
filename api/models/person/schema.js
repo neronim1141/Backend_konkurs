@@ -4,10 +4,12 @@ var Schema = mongoose.Schema;
 var schema = new Schema(
   {
     name: {
-      type: String
+      type: String,
+      required: true
     },
     lastName: {
-      type: String
+      type: String,
+      required: true
     },
     title: {
       type: String
@@ -17,6 +19,11 @@ var schema = new Schema(
     },
     telephone: {
       type: String
+    },
+    creationTime: {
+      type: Date,
+      default: Date.now,
+      required: true
     }
   },
   {
@@ -95,4 +102,15 @@ module.exports.deleteId = id => {
         reject(err);
       });
   });
+};
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
 };

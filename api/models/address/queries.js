@@ -11,6 +11,10 @@ const {
 const addressType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
+  addressCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
   address: {
     type: addressType,
     description: 'return one address by id',

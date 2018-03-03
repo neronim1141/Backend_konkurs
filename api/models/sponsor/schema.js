@@ -93,3 +93,14 @@ module.exports.deleteId = id => {
       });
   });
 };
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};

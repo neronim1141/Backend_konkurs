@@ -3,27 +3,35 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema(
   {
-    name: { type: String },
+    name: {
+      type: String,
+      required: true
+    },
 
     address: {
       type: Schema.Types.ObjectId,
-      ref: 'Addresses'
+      ref: 'Addresses',
+      required: true
     },
     schoolType: {
       type: Schema.Types.ObjectId,
-      ref: 'SchoolTypes'
+      ref: 'SchoolTypes',
+      required: true
     },
     director: {
       type: Schema.Types.ObjectId,
-      ref: 'Persons'
+      ref: 'Persons',
+      required: true
     },
     province: {
       type: Schema.Types.ObjectId,
-      ref: 'Provinces'
+      ref: 'Provinces',
+      required: true
     },
     region: {
       type: Schema.Types.ObjectId,
-      ref: 'Regions'
+      ref: 'Regions',
+      required: true
     },
     classes: [
       {
@@ -44,9 +52,17 @@ var schema = new Schema(
       }
     ],
     patron: { type: String },
-    email: { type: String },
+    email: {
+      type: String,
+      required: true
+    },
     telephone: { type: String },
-    fax: { type: String }
+    fax: { type: String },
+    creationTime: {
+      type: Date,
+      default: Date.now,
+      required: true
+    }
   },
   {
     toObject: { virtuals: true },
@@ -131,4 +147,15 @@ module.exports.deleteId = id => {
         reject(err);
       });
   });
+};
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
 };

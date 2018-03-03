@@ -11,7 +11,11 @@ const {
 const RegionType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
-  Region: {
+  regionCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
+  region: {
     type: RegionType,
     description: 'return one Region by id',
     args: {
@@ -21,7 +25,7 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  Regions: {
+  regions: {
     type: new GraphQLList(RegionType),
     description: 'return list of Regions',
     args: {

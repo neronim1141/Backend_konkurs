@@ -1,5 +1,5 @@
-const address = require('./address/index.spec');
-// const Application = require('./application/index.spec');
+const address = require('./address/test/index.spec');
+const application = require('./application/test/index.spec');
 // const Class = require('./class/index.spec');
 // const Committee = require('./committee/index.spec');
 // const Edition = require('./edition/index.spec');
@@ -12,5 +12,6 @@ const address = require('./address/index.spec');
 // const User = require('./user/index.spec');
 
 module.exports = {
-  address
+  address,
+  application
 };

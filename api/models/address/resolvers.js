@@ -26,4 +26,8 @@ module.exports.delete = (parentValue, args, context) => {
   new AuthValidate(context.user).isAssigned();
   return schema.deleteId(args.id);
 };
+
 //#endregion
+module.exports.count = (parentValue, args, context) => {
+  return schema.count();
+};

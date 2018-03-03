@@ -19,7 +19,10 @@ module.exports = new GraphQLObjectType({
       school: { type: SchoolType },
       edition: { type: EditionType },
       classes: { type: new GraphQLList(ClassType) },
-      status: { type: GraphQLString }
+      status: {
+        type: GraphQLString,
+        description: 'REJECTED OR WAITING OR ACCEPTED'
+      }
     };
   }
 });

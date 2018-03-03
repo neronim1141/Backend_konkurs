@@ -5,10 +5,12 @@ var schema = new Schema(
   {
     province: {
       type: Schema.Types.ObjectId,
-      ref: 'Provinces'
+      ref: 'Provinces',
+      required: true
     },
     name: {
-      type: String
+      type: String,
+      required: true
     }
   },
   {
@@ -93,4 +95,15 @@ module.exports.deleteId = id => {
         reject(err);
       });
   });
+};
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
 };

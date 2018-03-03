@@ -11,6 +11,10 @@ const {
 const PersonType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
+  personCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
   person: {
     type: PersonType,
     description: 'return one Person by id',

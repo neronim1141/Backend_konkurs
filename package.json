@@ -36,6 +36,7 @@
     "mockgoose": "^7.3.5",
     "nodemon": "^1.14.12",
     "sinon": "^4.4.2",
-    "sinon-chai": "^2.14.0"
+    "sinon-chai": "^2.14.0",
+    "sinon-mongoose": "^2.0.2"
   }
 }

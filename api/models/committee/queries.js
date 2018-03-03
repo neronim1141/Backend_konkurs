@@ -11,7 +11,11 @@ const {
 const CommitteeType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
-  Committee: {
+  committeeCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
+  committee: {
     type: CommitteeType,
     description: 'return one Committee by id',
     args: {
@@ -21,7 +25,7 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  Committees: {
+  committees: {
     type: new GraphQLList(CommitteeType),
     description: 'return list of Committees',
     args: {

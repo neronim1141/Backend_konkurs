@@ -11,6 +11,10 @@ const {
 const EditionType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
+  editionCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
   edition: {
     type: EditionType,
     description: 'return one edition by id',

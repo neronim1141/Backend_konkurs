@@ -6,21 +6,36 @@ const config = require('../../../config');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  login: { type: String },
-  email: { type: String },
-  schoolEmail: { type: String },
+  login: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  schoolEmail: {
+    type: String,
+    required: true
+  },
   assigned: {
     type: String
   },
   role: {
     type: String,
-    default: 'user'
+    default: 'user',
+    required: true
   },
   creationTime: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    required: true
   },
-  password: { type: String, select: false },
+  password: {
+    type: String,
+    select: false,
+    required: true
+  },
   salt: { type: String, select: false }
 });
 
@@ -302,4 +317,15 @@ module.exports.login = args => {
         reject(err);
       });
   });
+};
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
 };

@@ -26,10 +26,7 @@ const mutations = {
         type: new GraphQLNonNull(GraphQLString)
       },
       year: {
-        type: new GraphQLNonNull(GraphQLString)
-      },
-      result: {
-        type: new GraphQLNonNull(GraphQLString)
+        type: new GraphQLNonNull(GraphQLInt)
       }
     },
     resolve: resolvers.create
@@ -62,9 +59,6 @@ const mutations = {
         type: GraphQLString
       },
       year: {
-        type: GraphQLString
-      },
-      result: {
         type: GraphQLString
       }
     },

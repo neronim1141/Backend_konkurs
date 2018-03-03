@@ -11,6 +11,10 @@ const {
 const ProvinceType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
+  provinceCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
   province: {
     type: ProvinceType,
     description: 'return one province by id',

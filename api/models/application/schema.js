@@ -1,5 +1,6 @@
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 var Schema = mongoose.Schema;
+var customErrors = require('../../../utility/errors');
 
 var schema = new Schema(
   {
@@ -22,6 +23,12 @@ var schema = new Schema(
     ],
     status: {
       type: String,
+      enum: ['REJECTED', 'WAITING', 'ACCEPTED'],
+      required: true
+    },
+    creationTime: {
+      type: Date,
+      default: Date.now,
       required: true
     }
   },
@@ -107,4 +114,15 @@ module.exports.deleteId = id => {
         reject(err);
       });
   });
+};
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
 };

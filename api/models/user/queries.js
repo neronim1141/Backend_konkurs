@@ -11,7 +11,11 @@ const {
 const UserType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
-  User: {
+  userCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
+  user: {
     type: UserType,
     description: 'return one User by id',
     args: {
@@ -21,7 +25,7 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  Users: {
+  users: {
     type: new GraphQLList(UserType),
     description: 'return list of Users',
     args: {

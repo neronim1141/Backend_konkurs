@@ -24,8 +24,9 @@ module.exports.delete = (parentValue, args, context) => {
   return schema.deleteId(args.id);
 };
 //#endregion
-
-// TODO: move to mongoose
+module.exports.count = (parentValue, args, context) => {
+  return schema.count();
+};
 //#region authenticate
 module.exports.login = (parentValue, args, context) => {
   return schema.login(args);

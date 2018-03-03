@@ -11,7 +11,11 @@ const {
 const ClassType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
-  Class: {
+  classCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
+  class: {
     type: ClassType,
     description: 'return one Class by id',
     args: {
@@ -21,7 +25,7 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  Classes: {
+  classes: {
     type: new GraphQLList(ClassType),
     description: 'return list of Classs',
     args: {

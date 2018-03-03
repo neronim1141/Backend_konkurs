@@ -1,6 +1,7 @@
 const conn = require('./utility/db');
 
 const sinon = require('sinon');
+require('sinon-mongoose');
 const sandbox = sinon.sandbox.create();
 const chai = require('chai');
 const expect = chai.expect;

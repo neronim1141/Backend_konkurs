@@ -11,7 +11,11 @@ const {
 const ApplicationType = require('./type');
 const resolvers = require('./resolvers');
 const queries = {
-  Application: {
+  applicationCount: {
+    type: GraphQLInt,
+    resolve: resolvers.count
+  },
+  application: {
     type: ApplicationType,
     description: 'return one Application by id',
     args: {
@@ -21,7 +25,7 @@ const queries = {
     },
     resolve: resolvers.getOne
   },
-  Applications: {
+  applications: {
     type: new GraphQLList(ApplicationType),
     description: 'return list of Applications',
     args: {

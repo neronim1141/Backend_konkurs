@@ -6,34 +6,38 @@ const sinon = require('sinon');
 const sandbox = sinon.sandbox.create();
 const chai = require('chai');
 const expect = chai.expect;
-const customErrors = require('../../../utility/errors');
-const schema = require('./schema');
+const customErrors = require('../../../../utility/errors');
+const schema = require('../schema');
 const mongooseErrors = mongoose.Error;
 
-const modelName = 'application';
-const fields = ['school', 'edition', 'classes', 'status'];
-const required = ['school', 'edition', 'classes', 'status'];
+const modelName = require('./index.spec').name;
+const fields = ['name', 'street', 'postcode', 'city'];
+const required = ['name', 'street', 'postcode', 'city'];
 
 const valid = {
-  school: '',
-  edition: '',
-  classes: [],
-  status: ''
+  name: 'a',
+  street: 'a',
+  postcode: 'a',
+  city: 'a'
 };
 const updated = {
-  school: '',
-  edition: '',
-  classes: [],
-  status: ''
+  name: 'a',
+  street: 'a',
+  postcode: 'a',
+  city: 'a'
 };
 const invalid = {
-  school: '',
-  edition: '',
-  classes: [],
-  status: ''
+  id: '',
+  name: '',
+  street: '',
+  postcode: '',
+  city: ''
 };
 module.exports = () => {
   describe('schema', () => {
+    before(async () => {
+      await schema.find().remove();
+    });
     describe('required fields Errors', () => {
       let test = new schema(invalid);
       for (let req of required) {
@@ -64,8 +68,6 @@ module.exports = () => {
 
     describe('createNew', () => {
       it('Should response with error', async () => {
-        await schema.find().remove();
-
         const res = await schema.createNew();
         expect(res).to.be.instanceOf(mongooseErrors.ValidationError);
       });
@@ -93,6 +95,16 @@ module.exports = () => {
       it(`Should response with created ${modelName}`, async () => {
         const res = await schema.getList();
         expect(testFields(res[0], testObject, fields)).to.equal(true);
+      });
+    });
+    describe('count', () => {
+      it('Should return document count', async () => {
+        const res = await schema.count();
+        expect(res).to.be.equal(1);
+      });
+      it('Should return an integer', async () => {
+        const res = await schema.count();
+        expect(res).to.be.an('Number');
       });
     });
   });

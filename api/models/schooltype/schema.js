@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var schema = new Schema(
   {
     type: {
-      type: String
+      type: String,
+      required: true
     },
     group: {
       type: String,
@@ -87,4 +88,15 @@ module.exports.deleteId = id => {
         reject(err);
       });
   });
+};
+module.exports.count = query => {
+  return thisSchema
+    .find(query)
+    .count({})
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
 };
