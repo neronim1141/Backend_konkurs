@@ -1,4 +1,5 @@
 const schema = require('./schema');
+const regions = require('../region/schema');
 
 const AuthValidate = require('../../../auth/validate');
 
@@ -11,6 +12,12 @@ module.exports.getList = (parentValue, args, context) => {
 };
 //#endregion
 
+module.exports.regions = (parentValue, args, context) => {
+
+  return regions.getList({}, {
+    province: parentValue.id
+  })
+}
 //#region Create Update Delete
 module.exports.create = (parentValue, args, context) => {
   return schema.createNew(args);

@@ -21,7 +21,7 @@ var schema = new Schema(
   }
 );
 
-var autoPopulate = function(next) {
+var autoPopulate = function (next) {
   this.populate('province');
   next();
 };
@@ -42,9 +42,10 @@ module.exports.getOne = id => {
       return err;
     });
 };
-module.exports.getList = args => {
+module.exports.getList = (args, query) => {
+
   return thisSchema
-    .find()
+    .find(query)
     .then(res => res)
     .catch(err => err);
 };
