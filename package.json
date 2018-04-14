@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "start": "SET ENV=development&&nodemon ./bin/www",
-    "test": "SET ENV=test&&mocha -w -R spec tests.js --timeout 4000",
-    "test:server": "SET ENV=test&&nodemon ./bin/www",
-    "travis:test": "mocha  tests.js --timeout 4000"
+    "WIN:test": "SET ENV=test&&mocha -w -R spec tests.js --timeout 4000",
+    "WIN:test:server": "SET ENV=test&&nodemon ./bin/www",
+    "WIN:travis:test": "mocha  tests.js --timeout 4000",
+    "LIN:start": "export ENV=development&&nodemon ./bin/www",
+    "LIN:test": "export ENV=test&&mocha -w -R spec tests.js --timeout 4000",
+    "LIN:test:server": "export ENV=test&&nodemon ./bin/www",
+    "LIN:travis:test": "mocha  tests.js --timeout 4000"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
